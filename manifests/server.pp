@@ -337,8 +337,8 @@ define openvpn::server (
   }
   if $shared_ca {
     ensure_resource(file, "${server_directory}/${ca_name}", {
-        ensure => directory,
-        mode   => '0750',
+      ensure => directory,
+      mode   => '0750',
     })
   }
 

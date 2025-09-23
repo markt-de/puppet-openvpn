@@ -78,8 +78,8 @@ define openvpn::ca (
   $server_directory = $openvpn::server_directory
 
   ensure_resource('file', "${server_directory}/${name}", {
-      ensure => directory,
-      mode   => '0750'
+    ensure => directory,
+    mode   => '0750'
   })
 
   file { "${server_directory}/${name}/easy-rsa" :
