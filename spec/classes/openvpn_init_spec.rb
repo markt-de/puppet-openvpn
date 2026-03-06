@@ -7,7 +7,7 @@ describe 'openvpn' do
     context "on #{os}" do
       let(:facts) do
         os_facts.merge(
-          easyrsa: '3.0'
+          easyrsa: '3.0',
         )
       end
 

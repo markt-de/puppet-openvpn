@@ -7,7 +7,7 @@ describe 'openvpn::client' do
     context "on #{os}" do
       let(:facts) do
         os_facts.merge(
-          easyrsa: '3.0'
+          easyrsa: '3.0',
         )
       end
       let(:pre_condition) do
@@ -44,59 +44,59 @@ describe 'openvpn::client' do
           it { is_expected.to contain_file("#{server_directory}/test_server/download-configs/#{directory}") }
         end
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^client$}).
-            with_content(%r{^dev\s+tun$}).
-            with_content(%r{^proto\s+tcp$}).
-            with_content(%r{^remote\s+.+\s+1194$}).
-            with_content(%r{^nobind$}).
-            with_content(%r{^persist-key$}).
-            with_content(%r{^persist-tun$}).
-            with_content(%r{^cipher\s+AES-256-GCM$}).
-            with_content(%r{^tls-cipher\s+TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-256-CBC-SHA256:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-128-CBC-SHA256$}).
-            with_content(%r{^mute-replay-warnings$}).
-            with_content(%r{^remote-cert-tls\s+server$}).
-            with_content(%r{^verb\s+3$}).
-            with_content(%r{^mute\s+20$}).
-            with_content(%r{^ca\s+keys/test_client/ca\.crt$}).
-            with_content(%r{^cert\s+keys/test_client/test_client.crt$}).
-            with_content(%r{^key\s+keys/test_client/test_client\.key$}).
-            without_content(%r{^pull$}).
-            without_content(%r{^sndbuf}).
-            without_content(%r{^rcvbuf}).
-            without_content(%r{^auth-user-pass}).
-            without_content(%r{^setnev}).
-            without_content(%r{^setnev-safe}).
-            without_content(%r{^script-security\s+2$}).
-            without_content(%r{^up}).
-            without_content(%r{^down}).
-            without_content(%r{^x509-verify-name})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^client$})
+            .with_content(%r{^dev\s+tun$})
+            .with_content(%r{^proto\s+tcp$})
+            .with_content(%r{^remote\s+.+\s+1194$})
+            .with_content(%r{^nobind$})
+            .with_content(%r{^persist-key$})
+            .with_content(%r{^persist-tun$})
+            .with_content(%r{^cipher\s+AES-256-GCM$})
+            .with_content(%r{^tls-cipher\s+TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-256-CBC-SHA256:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-128-CBC-SHA256$})
+            .with_content(%r{^mute-replay-warnings$})
+            .with_content(%r{^remote-cert-tls\s+server$})
+            .with_content(%r{^verb\s+3$})
+            .with_content(%r{^mute\s+20$})
+            .with_content(%r{^ca\s+keys/test_client/ca\.crt$})
+            .with_content(%r{^cert\s+keys/test_client/test_client.crt$})
+            .with_content(%r{^key\s+keys/test_client/test_client\.key$})
+            .without_content(%r{^pull$})
+            .without_content(%r{^sndbuf})
+            .without_content(%r{^rcvbuf})
+            .without_content(%r{^auth-user-pass})
+            .without_content(%r{^setnev})
+            .without_content(%r{^setnev-safe})
+            .without_content(%r{^script-security\s+2$})
+            .without_content(%r{^up})
+            .without_content(%r{^down})
+            .without_content(%r{^x509-verify-name})
         }
 
         it {
           is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/keys/test_client/test_client.crt").with(
             'ensure' => 'link',
-            'target' => "#{server_directory}/test_server/easy-rsa/keys/issued/test_client.crt"
+            'target' => "#{server_directory}/test_server/easy-rsa/keys/issued/test_client.crt",
           )
         }
 
         it {
           is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/keys/test_client/test_client.key").with(
             'ensure' => 'link',
-            'target' => "#{server_directory}/test_server/easy-rsa/keys/private/test_client.key"
+            'target' => "#{server_directory}/test_server/easy-rsa/keys/private/test_client.key",
           )
         }
 
         it {
           is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/keys/test_client/ca.crt").with(
             'ensure' => 'link',
-            'target' => "#{server_directory}/test_server/easy-rsa/keys/ca.crt"
+            'target' => "#{server_directory}/test_server/easy-rsa/keys/ca.crt",
           )
         }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/revoked/test_client").
-            with_ensure('absent')
+          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/revoked/test_client")
+            .with_ensure('absent')
         }
       end
 
@@ -104,25 +104,25 @@ describe 'openvpn::client' do
         let(:params) do
           {
             'server' => 'test_server',
-            'remote_host' => 'foo.example.com'
+            'remote_host' => 'foo.example.com',
           }
         end
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^client$}).
-            with_content(%r{^dev\s+tun$}).
-            with_content(%r{^proto\s+tcp$}).
-            with_content(%r{^remote\s+foo.example.com\s+1194$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^client$})
+            .with_content(%r{^dev\s+tun$})
+            .with_content(%r{^proto\s+tcp$})
+            .with_content(%r{^remote\s+foo.example.com\s+1194$})
         }
 
         it {
-          is_expected.not_to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^tls-client$}).
-            with_content(%r{^verify-x509-name}).
-            with_content(%r{^sndbuf}).
-            with_content(%r{^rcvbuf}).
-            with_content(%r{^pull})
+          is_expected.not_to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^tls-client$})
+            .with_content(%r{^verify-x509-name})
+            .with_content(%r{^sndbuf})
+            .with_content(%r{^rcvbuf})
+            .with_content(%r{^pull})
         }
       end
 
@@ -130,8 +130,8 @@ describe 'openvpn::client' do
         let(:params) { { 'server' => 'test_server', 'tls_crypt' => true } }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^tls-crypt\s+keys/test_client/ta\.key$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^tls-crypt\s+keys/test_client/ta\.key$})
         }
       end
 
@@ -139,9 +139,9 @@ describe 'openvpn::client' do
         let(:params) { { 'server' => 'test_server', 'tls_auth' => true } }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^tls-client$}).
-            with_content(%r{^tls-auth\s+keys/test_client/ta\.key\s+1$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^tls-client$})
+            .with_content(%r{^tls-auth\s+keys/test_client/ta\.key\s+1$})
         }
       end
 
@@ -155,8 +155,8 @@ describe 'openvpn::client' do
         let(:params) { { 'server' => 'test_server', 'authuserpass' => true } }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^auth-user-pass$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^auth-user-pass$})
         }
       end
 
@@ -164,8 +164,8 @@ describe 'openvpn::client' do
         let(:params) { { 'server' => 'test_server', 'pam' => true } }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^auth-user-pass$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^auth-user-pass$})
         }
       end
 
@@ -173,13 +173,13 @@ describe 'openvpn::client' do
         let(:params) do
           {
             'server' => 'test_server',
-            'custom_options' => { 'this' => 'that' }
+            'custom_options' => { 'this' => 'that' },
           }
         end
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^this that$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^this that$})
         }
       end
 
@@ -210,34 +210,34 @@ describe 'openvpn::client' do
             'rcvbuf' => 393_215,
             'readme' => 'readme text',
             'pull' => true,
-            'remote_cert_tls' => false
+            'remote_cert_tls' => false,
           }
         end
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^client$}).
-            with_content(%r{^ca\s+keys/test_client/ca\.crt$}).
-            with_content(%r{^cert\s+keys/test_client/test_client.crt$}).
-            with_content(%r{^key\s+keys/test_client/test_client\.key$}).
-            with_content(%r{^dev\s+tap$}).
-            with_content(%r{^proto\s+udp$}).
-            with_content(%r{^remote\s+somewhere\s+123$}).
-            with_content(%r{^remote\s+galaxy\s+123$}).
-            with_content(%r{^compress lz4$}).
-            with_content(%r{^resolv-retry\s+2m$}).
-            with_content(%r{^verb\s+1$}).
-            with_content(%r{^mute\s+10$}).
-            with_content(%r{^auth-retry\s+interact$}).
-            with_content(%r{^setenv\s+CLIENT_CERT\s+0$}).
-            with_content(%r{^setenv_safe\s+FORWARD_COMPATIBLE\s+1$}).
-            with_content(%r{^cipher\s+AES-256-GCM$}).
-            with_content(%r{^tls-cipher\s+TLS-DHE-RSA-WITH-AES-256-CBC-SHA$}).
-            with_content(%r{^tls-client$}).
-            with_content(%r{^verify-x509-name\s+"test_server"\s+name$}).
-            with_content(%r{^sndbuf\s+393216$}).
-            with_content(%r{^rcvbuf\s+393215$}).
-            with_content(%r{^pull$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^client$})
+            .with_content(%r{^ca\s+keys/test_client/ca\.crt$})
+            .with_content(%r{^cert\s+keys/test_client/test_client.crt$})
+            .with_content(%r{^key\s+keys/test_client/test_client\.key$})
+            .with_content(%r{^dev\s+tap$})
+            .with_content(%r{^proto\s+udp$})
+            .with_content(%r{^remote\s+somewhere\s+123$})
+            .with_content(%r{^remote\s+galaxy\s+123$})
+            .with_content(%r{^compress lz4$})
+            .with_content(%r{^resolv-retry\s+2m$})
+            .with_content(%r{^verb\s+1$})
+            .with_content(%r{^mute\s+10$})
+            .with_content(%r{^auth-retry\s+interact$})
+            .with_content(%r{^setenv\s+CLIENT_CERT\s+0$})
+            .with_content(%r{^setenv_safe\s+FORWARD_COMPATIBLE\s+1$})
+            .with_content(%r{^cipher\s+AES-256-GCM$})
+            .with_content(%r{^tls-cipher\s+TLS-DHE-RSA-WITH-AES-256-CBC-SHA$})
+            .with_content(%r{^tls-client$})
+            .with_content(%r{^verify-x509-name\s+"test_server"\s+name$})
+            .with_content(%r{^sndbuf\s+393216$})
+            .with_content(%r{^rcvbuf\s+393215$})
+            .with_content(%r{^pull$})
         }
 
         it { is_expected.not_to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").with_content(%r{^remote-cert-tls\s+server$}) }
@@ -283,7 +283,7 @@ describe 'openvpn::client' do
         let(:params) do
           {
             'server' => 'test_server',
-            'shared_ca' => 'my_shared_ca'
+            'shared_ca' => 'my_shared_ca',
           }
         end
 
@@ -291,31 +291,31 @@ describe 'openvpn::client' do
         it { is_expected.to contain_exec('generate certificate for test_client in context of my_shared_ca') }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf").
-            with_content(%r{^client$}).
-            with_content(%r{^ca\s+keys/test_client/ca\.crt$}).
-            with_content(%r{^cert\s+keys/test_client/test_client\.crt$}).
-            with_content(%r{^key\s+keys/test_client/test_client\.key$})
+          is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/test_client.conf")
+            .with_content(%r{^client$})
+            .with_content(%r{^ca\s+keys/test_client/ca\.crt$})
+            .with_content(%r{^cert\s+keys/test_client/test_client\.crt$})
+            .with_content(%r{^key\s+keys/test_client/test_client\.key$})
         }
 
         it {
           is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/keys/test_client/test_client.crt").with(
             'ensure' => 'link',
-            'target' => "#{server_directory}/my_shared_ca/easy-rsa/keys/issued/test_client.crt"
+            'target' => "#{server_directory}/my_shared_ca/easy-rsa/keys/issued/test_client.crt",
           )
         }
 
         it {
           is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/keys/test_client/test_client.key").with(
             'ensure' => 'link',
-            'target' => "#{server_directory}/my_shared_ca/easy-rsa/keys/private/test_client.key"
+            'target' => "#{server_directory}/my_shared_ca/easy-rsa/keys/private/test_client.key",
           )
         }
 
         it {
           is_expected.to contain_file("#{server_directory}/test_server/download-configs/test_client/keys/test_client/ca.crt").with(
             'ensure' => 'link',
-            'target' => "#{server_directory}/my_shared_ca/easy-rsa/keys/ca.crt"
+            'target' => "#{server_directory}/my_shared_ca/easy-rsa/keys/ca.crt",
           )
         }
       end
@@ -324,7 +324,7 @@ describe 'openvpn::client' do
         let(:params) do
           {
             'server' => 'test_server',
-            'shared_ca' => 'my_shared_ca'
+            'shared_ca' => 'my_shared_ca',
           }
         end
 

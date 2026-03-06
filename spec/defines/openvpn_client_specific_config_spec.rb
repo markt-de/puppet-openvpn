@@ -7,7 +7,7 @@ describe 'openvpn::client_specific_config' do
     context "on #{os}" do
       let(:facts) do
         os_facts.merge(
-          easyrsa: '3.0'
+          easyrsa: '3.0',
         )
       end
       let(:pre_condition) do
@@ -58,23 +58,23 @@ describe 'openvpn::client_specific_config' do
             route_ipv6: ['2001:db8:1::/64'],
             dhcp_options: ['DNS 8.8.8.8'],
             custom_options: { 'this' => 'that' },
-            redirect_gateway: true
+            redirect_gateway: true,
           }
         end
 
         it { is_expected.to compile.with_all_deps }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/client-configs/test_client").
-            with_content(%r{iroute 10.0.1.0 255.255.255.0}).
-            with_content(%r{iroute-ipv6 2001:db8:1234::/64}).
-            with_content(%r{ifconfig-push 10.10.10.2 255.255.255.0}).
-            with_content(%r{ifconfig-ipv6-push 2001:db8:0:123::2/64 2001:db8:0:123::1}).
-            with_content(%r{route 10.200.100.0 255.255.255.0 10.10.10.1}).
-            with_content(%r{push "route-ipv6 2001:db8:1::/64}).
-            with_content(%r{dhcp-option DNS 8.8.8.8}).
-            with_content(%r{this that}).
-            with_content(%r{redirect-gateway})
+          is_expected.to contain_file("#{server_directory}/test_server/client-configs/test_client")
+            .with_content(%r{iroute 10.0.1.0 255.255.255.0})
+            .with_content(%r{iroute-ipv6 2001:db8:1234::/64})
+            .with_content(%r{ifconfig-push 10.10.10.2 255.255.255.0})
+            .with_content(%r{ifconfig-ipv6-push 2001:db8:0:123::2/64 2001:db8:0:123::1})
+            .with_content(%r{route 10.200.100.0 255.255.255.0 10.10.10.1})
+            .with_content(%r{push "route-ipv6 2001:db8:1::/64})
+            .with_content(%r{dhcp-option DNS 8.8.8.8})
+            .with_content(%r{this that})
+            .with_content(%r{redirect-gateway})
         }
       end
     end

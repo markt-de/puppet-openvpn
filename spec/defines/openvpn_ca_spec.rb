@@ -7,7 +7,7 @@ describe 'openvpn::ca' do
     context "on #{os}" do
       let(:facts) do
         os_facts.merge(
-          easyrsa: '3.0'
+          easyrsa: '3.0',
         )
       end
       let(:title) { 'test_server' }
@@ -30,7 +30,7 @@ describe 'openvpn::ca' do
             'province' => 'ST',
             'city' => 'Some City',
             'organization' => 'example.org',
-            'email' => 'admin@example.org'
+            'email' => 'admin@example.org',
           }
         end
 
@@ -47,8 +47,8 @@ describe 'openvpn::ca' do
         it { is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars").with_mode('0550') }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/keys").
-            with(ensure: 'link', target: "#{server_directory}/test_server/easy-rsa/keys")
+          is_expected.to contain_file("#{server_directory}/test_server/keys")
+            .with(ensure: 'link', target: "#{server_directory}/test_server/easy-rsa/keys")
         }
 
         it { is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/openssl.cnf") }
@@ -69,12 +69,12 @@ describe 'openvpn::ca' do
         it { is_expected.to contain_exec('copy created crl.pem to test_server keys directory').with_command("cp #{server_directory}/test_server/easy-rsa/keys/crl.pem #{server_directory}/test_server/crl.pem") }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars").
-            with_content(%r{set_var EASYRSA_REQ_COUNTRY "CO"$}).
-            with_content(%r{set_var EASYRSA_REQ_PROVINCE "ST"$}).
-            with_content(%r{set_var EASYRSA_REQ_CITY "Some City"$}).
-            with_content(%r{set_var EASYRSA_REQ_ORG "example.org"$}).
-            with_content(%r{set_var EASYRSA_REQ_EMAIL "admin@example.org"$})
+          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars")
+            .with_content(%r{set_var EASYRSA_REQ_COUNTRY "CO"$})
+            .with_content(%r{set_var EASYRSA_REQ_PROVINCE "ST"$})
+            .with_content(%r{set_var EASYRSA_REQ_CITY "Some City"$})
+            .with_content(%r{set_var EASYRSA_REQ_ORG "example.org"$})
+            .with_content(%r{set_var EASYRSA_REQ_EMAIL "admin@example.org"$})
         }
       end
 
@@ -95,21 +95,21 @@ describe 'openvpn::ca' do
             'key_expire' => 365,
             'key_cn' => 'yolo',
             'key_name' => 'burp',
-            'key_ou' => 'NSA'
+            'key_ou' => 'NSA',
           }
         end
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars").
-            with_content(%r{set_var EASYRSA_DN "cn_only"$}).
-            with_content(%r{set_var EASYRSA_CA_EXPIRE 365$}).
-            with_content(%r{set_var EASYRSA_CERT_EXPIRE 365$}).
-            with_content(%r{set_var EASYRSA_REQ_CN "yolo"$}).
-            with_content(%r{set_var EASYRSA_REQ_OU "NSA"$}).
-            with_content(%r{set_var EASYRSA_DIGEST sha256$}).
-            with_content(%r{set_var EASYRSA_KEY_SIZE 2048$}).
-            with_content(%r{set_var EASYRSA_ALGO rsa$}).
-            without_content(%r{set_var EASYRSA_CURVE})
+          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars")
+            .with_content(%r{set_var EASYRSA_DN "cn_only"$})
+            .with_content(%r{set_var EASYRSA_CA_EXPIRE 365$})
+            .with_content(%r{set_var EASYRSA_CERT_EXPIRE 365$})
+            .with_content(%r{set_var EASYRSA_REQ_CN "yolo"$})
+            .with_content(%r{set_var EASYRSA_REQ_OU "NSA"$})
+            .with_content(%r{set_var EASYRSA_DIGEST sha256$})
+            .with_content(%r{set_var EASYRSA_KEY_SIZE 2048$})
+            .with_content(%r{set_var EASYRSA_ALGO rsa$})
+            .without_content(%r{set_var EASYRSA_CURVE})
         }
       end
 
@@ -134,9 +134,9 @@ describe 'openvpn::ca' do
         end
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars").
-            with_content(%r{set_var EASYRSA_ALGO ec$}).
-            with_content(%r{set_var EASYRSA_CURVE secp384r1$})
+          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars")
+            .with_content(%r{set_var EASYRSA_ALGO ec$})
+            .with_content(%r{set_var EASYRSA_CURVE secp384r1$})
         }
       end
 
@@ -149,9 +149,9 @@ describe 'openvpn::ca' do
         end
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars").
-            with_content(%r{set_var EASYRSA_ALGO ec$}).
-            with_content(%r{set_var EASYRSA_CURVE secp521r1$})
+          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars")
+            .with_content(%r{set_var EASYRSA_ALGO ec$})
+            .with_content(%r{set_var EASYRSA_CURVE secp521r1$})
         }
       end
     end
