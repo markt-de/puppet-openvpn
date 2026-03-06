@@ -67,11 +67,15 @@ Data type: `Boolean`
 
 Whether openvpn instances should be started automatically on boot.
 
+Default value: `true`
+
 ##### <a name="-openvpn--manage_service"></a>`manage_service`
 
 Data type: `Boolean`
 
 Whether the openvpn service should be managed by puppet.
+
+Default value: `true`
 
 ##### <a name="-openvpn--etc_directory"></a>`etc_directory`
 
@@ -79,11 +83,15 @@ Data type: `Stdlib::Absolutepath`
 
 Path of the configuration directory.
 
+Default value: `'/etc'`
+
 ##### <a name="-openvpn--group"></a>`group`
 
 Data type: `String[1]`
 
 File group of the generated config files.
+
+Default value: `'nobody'`
 
 ##### <a name="-openvpn--link_openssl_cnf"></a>`link_openssl_cnf`
 
@@ -91,11 +99,15 @@ Data type: `Boolean`
 
 Link easy-rsa/openssl.cnf to easy-rsa/openssl-1.0.0.cnf
 
+Default value: `true`
+
 ##### <a name="-openvpn--pam_module_path"></a>`pam_module_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to openvpn-auth-pam.so
+
+Default value: `undef`
 
 ##### <a name="-openvpn--namespecific_rclink"></a>`namespecific_rclink`
 
@@ -103,11 +115,15 @@ Data type: `Boolean`
 
 Enable namespecific rclink's (BSD-style)
 
+Default value: `false`
+
 ##### <a name="-openvpn--default_easyrsa_ver"></a>`default_easyrsa_ver`
 
 Data type: `Pattern[/^[23]\.0$/]`
 
 Expected version of easyrsa.
+
+Default value: `'3.0'`
 
 ##### <a name="-openvpn--easyrsa_source"></a>`easyrsa_source`
 
@@ -115,17 +131,23 @@ Data type: `Stdlib::Unixpath`
 
 Location of easyrsa.
 
+Default value: `'/usr/share/easy-rsa/'`
+
 ##### <a name="-openvpn--additional_packages"></a>`additional_packages`
 
 Data type: `Variant[String[1], Array[String[1]]]`
 
 Additional packages
 
+Default value: `['easy-rsa']`
+
 ##### <a name="-openvpn--ldap_auth_plugin_location"></a>`ldap_auth_plugin_location`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the ldap auth pam module
+
+Default value: `undef`
 
 ##### <a name="-openvpn--client_defaults"></a>`client_defaults`
 
@@ -197,11 +219,15 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path of the server configuration. This is usually `/etc_directory/openvpn`, but RHEL/CentOS 8 uses `/etc_directory/openvpn/server`
 
+Default value: `'/etc/openvpn'`
+
 ##### <a name="-openvpn--server_service_name"></a>`server_service_name`
 
 Data type: `String[1]`
 
 Name of the openvpn server service. This is usually `openvpn`, but RHEL/CentOS 8 uses `openvpn-server`.
+
+Default value: `'openvpn'`
 
 ### <a name="openvpn--config"></a>`openvpn::config`
 
