@@ -21,7 +21,7 @@ describe 'openvpn', order: :defined do
       end
 
       ['/etc/openvpn/server/test_openvpn_server',
-       '/etc/openvpn/server/test_openvpn_server/keys'].each do |dir|
+       '/etc/openvpn/server/test_openvpn_server/keys',].each do |dir|
         describe file(dir) do
           it { is_expected.to be_directory }
         end
@@ -75,7 +75,7 @@ describe 'openvpn', order: :defined do
      '/etc/openvpn/server/test_openvpn_server/keys/private/vpnclienta.key',
      '/etc/openvpn/server/test_openvpn_server/keys/private/vpnclientb.key',
      '/etc/openvpn/server/test_openvpn_server/keys/issued/vpnclienta.crt',
-     '/etc/openvpn/server/test_openvpn_server/keys/issued/vpnclientb.crt'].each do |path|
+     '/etc/openvpn/server/test_openvpn_server/keys/issued/vpnclientb.crt',].each do |path|
       describe file(path) do
         it { is_expected.to be_file }
       end

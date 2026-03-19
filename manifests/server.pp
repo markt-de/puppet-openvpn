@@ -337,8 +337,8 @@ define openvpn::server (
   }
   if $shared_ca {
     ensure_resource(file, "${server_directory}/${ca_name}", {
-        ensure => directory,
-        mode   => '0750',
+      ensure => directory,
+      mode   => '0750',
     })
   }
 
@@ -401,7 +401,7 @@ define openvpn::server (
         }
         case $openvpn::easyrsa_version {
           '2.0': {
-            exec { "renew crl.pem on ${name}":
+            exec { "renew crl.pem on ${name}":  # lint:ignore:exec_idempotency
               command  => ". ./vars && KEY_CN='' KEY_OU='' KEY_NAME='' KEY_ALTNAMES='' openssl ca -gencrl -out ${server_directory}/${name}/crl.pem -config ${server_directory}/${name}/easy-rsa/openssl.cnf",
               cwd      => "${server_directory}/${name}/easy-rsa",
               provider => 'shell',
@@ -410,7 +410,7 @@ define openvpn::server (
             }
           }
           '3.0': {
-            exec { "renew crl.pem on ${name}":
+            exec { "renew crl.pem on ${name}":  # lint:ignore:exec_idempotency
               command  => "./easyrsa gen-crl && cp ./keys/crl.pem ${server_directory}/${name}/crl.pem",
               cwd      => "${server_directory}/${name}/easy-rsa",
               provider => 'shell',

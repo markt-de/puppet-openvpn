@@ -7,7 +7,7 @@ describe 'openvpn::revoke' do
     context "on #{os}" do
       let(:facts) do
         os_facts.merge(
-          easyrsa: '3.0'
+          easyrsa: '3.0',
         )
       end
 
@@ -30,7 +30,7 @@ describe 'openvpn::revoke' do
             city          => "Some City",
             organization  => "example.org",
             email         => "testemail@example.org"
-          }'
+          }',
           ].join
         end
         let(:title) { 'test_client' }
@@ -39,23 +39,23 @@ describe 'openvpn::revoke' do
         it { is_expected.to compile.with_all_deps }
 
         it {
-          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/revoked/test_client").
-            with_ensure('file')
+          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/revoked/test_client")
+            .with_ensure('file')
         }
 
         it {
-          is_expected.to contain_exec('revoke certificate for test_client in context of test_server').
-            with_command("./easyrsa --batch revoke test_client; echo \"exit $?\" | grep -qE '(error 23|exit (0|2))'")
+          is_expected.to contain_exec('revoke certificate for test_client in context of test_server')
+            .with_command("./easyrsa --batch revoke test_client; echo \"exit $?\" | grep -qE '(error 23|exit (0|2))'")
         }
 
         it {
-          is_expected.to contain_exec('renew crl.pem on test_server because of revocation of test_client').
-            with_command('./easyrsa --batch gen-crl')
+          is_expected.to contain_exec('renew crl.pem on test_server because of revocation of test_client')
+            .with_command('./easyrsa --batch gen-crl')
         }
 
         it {
-          is_expected.to contain_exec('copy renewed crl.pem to test_server keys directory because of revocation of test_client').
-            with_command("cp #{server_directory}/test_server/easy-rsa/keys/crl.pem #{server_directory}/test_server/crl.pem")
+          is_expected.to contain_exec('copy renewed crl.pem to test_server keys directory because of revocation of test_client')
+            .with_command("cp #{server_directory}/test_server/easy-rsa/keys/crl.pem #{server_directory}/test_server/crl.pem")
         }
 
         context 'with conflicting client' do
@@ -63,7 +63,7 @@ describe 'openvpn::revoke' do
             [
               'openvpn::client { "test_client":
               server => "test_server"
-             }'
+             }',
             ].join
           end
 
@@ -77,8 +77,8 @@ describe 'openvpn::revoke' do
           let(:params) { { 'ensure' => 'absent', 'server' => 'test_server' } }
 
           it {
-            is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/revoked/test_client").
-              with_ensure('absent')
+            is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/revoked/test_client")
+              .with_ensure('absent')
           }
         end
       end
