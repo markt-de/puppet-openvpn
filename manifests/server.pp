@@ -105,6 +105,7 @@
 # @param nobind Whether or not to bind to a specific port number.#
 # @param secret A pre-shared static key.
 # @param scripts Hash of scripts to copy with this instance.
+# @param custom_easyrsa_env_vars Add additional custom easyrsa env vars
 #  For example, to put a script in `/etc/openvpn/test-site/scripts/add-tap-to-bridge.sh` and use it as an `up` script
 #  ``` puppet
 #  openvpn::server { 'test-site':
@@ -253,6 +254,7 @@ define openvpn::server (
   Optional[String] $secret                                          = undef,
   Hash[String, Hash] $scripts                                       = {},
   Hash $custom_options                                              = {},
+  Optional[Hash[String[1],String[1]]] $custom_easyrsa_env_vars      = undef,
 ) {
   include openvpn
   Class['openvpn::install']
@@ -371,25 +373,26 @@ define openvpn::server (
 
       $ca_common_name = $common_name
       openvpn::ca { $name:
-        dn_mode        => $dn_mode,
-        country        => $country,
-        province       => $province,
-        city           => $city,
-        organization   => $organization,
-        email          => $email,
-        common_name    => $common_name,
-        group          => $group,
-        ssl_key_algo   => $ssl_key_algo,
-        ssl_key_size   => $ssl_key_size,
-        ssl_key_curve  => $ssl_key_curve,
-        ca_expire      => $ca_expire,
-        key_expire     => $key_expire,
-        crl_days       => $crl_days,
-        digest         => $digest,
-        key_cn         => $key_cn,
-        key_name       => $key_name,
-        key_ou         => $key_ou,
-        tls_static_key => $tls_auth or $tls_crypt,
+        dn_mode                 => $dn_mode,
+        country                 => $country,
+        province                => $province,
+        city                    => $city,
+        organization            => $organization,
+        email                   => $email,
+        common_name             => $common_name,
+        group                   => $group,
+        ssl_key_algo            => $ssl_key_algo,
+        ssl_key_size            => $ssl_key_size,
+        ssl_key_curve           => $ssl_key_curve,
+        ca_expire               => $ca_expire,
+        key_expire              => $key_expire,
+        crl_days                => $crl_days,
+        digest                  => $digest,
+        key_cn                  => $key_cn,
+        key_name                => $key_name,
+        key_ou                  => $key_ou,
+        tls_static_key          => $tls_auth or $tls_crypt,
+        custom_easyrsa_env_vars => $custom_easyrsa_env_vars,
       }
 
       ## Renewal of crl.pem

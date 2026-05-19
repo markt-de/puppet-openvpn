@@ -154,6 +154,19 @@ describe 'openvpn::ca' do
             .with_content(%r{set_var EASYRSA_CURVE secp521r1$})
         }
       end
+      context 'with custom environment variables' do
+        let(:params) do
+          {
+            'custom_easyrsa_env_vars' => {
+              'EASYRSA_TEXT_OFF' => '1',
+            }
+          }
+        end
+
+        it {
+          is_expected.to contain_file("#{server_directory}/test_server/easy-rsa/vars")
+            .with_content(%r{set_var EASYRSA_TEXT_OFF 1$})
+        }
     end
   end
 end

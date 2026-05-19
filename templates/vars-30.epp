@@ -254,3 +254,9 @@ set_var EASYRSA_DIGEST <%= $digest %>
 # or most output. Setting this to any non-blank string enables batch mode.
 #
 set_var EASYRSA_BATCH "1"
+
+<%- if $custom_env_vars and !empty($custom_env_vars) { -%>
+<%-   $custom_env_vars.each |$env_var, $env_var_value| { -%>
+set_var <%= $env_var %> "<%= $env_var_value %>"
+<%-   } -%>
+<%- } -%>

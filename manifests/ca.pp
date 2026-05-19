@@ -19,6 +19,7 @@
 # @param key_cn Value for commonName_default variable in openssl.cnf and KEY_CN in vars
 # @param tls_auth Determins if a tls key is generated
 # @param tls_static_key Determins if a tls key is generated
+# @param custom_easyrsa_env_vars Add additional custom easyrsa env vars
 # @example
 #   openvpn::ca {
 #     'my_user':
@@ -47,6 +48,7 @@ define openvpn::ca (
   Optional[String] $key_ou                                       = undef,
   Boolean $tls_auth                                              = false,
   Boolean $tls_static_key                                        = false,
+  Optional[Hash[String[1],String[1]]] $custom_easyrsa_env_vars   = undef,
 ) {
   if $tls_auth {
     warning('Parameter $tls_auth is deprecated. Use $tls_static_key instead.')
@@ -131,6 +133,7 @@ define openvpn::ca (
             'email'            => $email,
             'key_cn'           => $key_cn,
             'key_ou'           => $key_ou,
+            'custom_env_vars'  => $custom_easyrsa_env_vars,
           }
         ),
         require => File["${server_directory}/${name}/easy-rsa"],
